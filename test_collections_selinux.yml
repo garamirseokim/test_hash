@@ -1,0 +1,27 @@
+ 
+---
+- hosts: all
+  gather_facts: false
+
+  vars:
+    pause_secs_pre: 180
+    pause_secs_post: 180
+    selinux_policy: targeted
+    selinux_status: disabled
+
+  tasks:
+    - shell: "find ."
+      register: result
+
+    - debug:
+        var: result
+
+    - pause:
+        seconds: "{{ pause_secs_pre }}"
+
+    - ansible.posix.selinux:
+        policy: "{{ selinux_policy }}"
+        state: "{{ selinux_status }}"
+
+    - pause:
+        seconds: "{{ pause_secs_post }}"

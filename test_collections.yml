@@ -1,0 +1,16 @@
+---
+- hosts: all
+  gather_facts: false
+
+  vars:
+    pause_seconds: 180
+
+  tasks:
+    - pause:
+        seconds: "{{ pause_seconds }}"
+
+    - ansible.posix.selinux:
+        state: disabled
+
+    - pause:
+        seconds: "{{ pause_seconds }}"
